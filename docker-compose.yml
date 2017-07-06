@@ -1,0 +1,30 @@
+version: '2.0'
+
+services:
+    weather-backend:
+      build: ./backend
+      volumes:    #map backend dir and package inside container
+        - './backend/:/usr/src/'
+        - './backend/package.json:/usr/src/package.json'
+        - '/usr/src/node_modules'
+      ports:
+         - "9000:9000" #expose ports -Host:container
+      command: [sh, -c, "mocha /usr/src/src test.js && npm start"]
+
+
+
+
+
+    weather-frontend:
+      build: ./frontend
+      depends_on:
+        - weather-backend
+      volumes:
+        - './frontend/:/usr/src/'
+        - '/usr/src/node_modules'
+      ports:
+        - "8000:8000" #expose ports -Host:container
+      environment:
+        NODE_ENV: "development"
+      command: npm start
+

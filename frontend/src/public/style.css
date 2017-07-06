@@ -1,0 +1,23 @@
+body{
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  width: 30vw;
+  height: 30vw;
+}
+.icon2 {
+  width:20vw;
+  height: 20vw;
+}
+.temp {
+  width: 30vh;
+  height: 5vh;
+  font-size: 15px;
+}
