@@ -9,6 +9,10 @@ services:
         - '/usr/src/node_modules'
       ports:
          - "9000:9000" #expose ports -Host:container
+      environment: 
+        - APPID=e806a08a459993c79b06b152b06f2302
+        - MAP_ENDPOINT=api.openweathermap.org/data/2.5
+        - TARGET_CITY=Helsinki,fi
       command: [sh, -c, "mocha /usr/src/src test.js && npm start"]
 
 
@@ -25,6 +29,7 @@ services:
       ports:
         - "8000:8000" #expose ports -Host:container
       environment:
-        NODE_ENV: "development"
+        - NODE_ENV=development
+        - ENDPOINT=http://0.0.0.0:9000/api
       command: npm start
 
