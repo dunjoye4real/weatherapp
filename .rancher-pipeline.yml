@@ -1,1 +1,26 @@
-timeout: 60
+stages:
+- name: Build
+  steps:
+  - runScriptConfig:
+      image: node:latest
+      shellScript: |-
+        mkdir -p /usr/src/
+        export PATH /usr/src/node_modules/.bin:$PATH
+        cd /usr/src/
+- name: Publish
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./backend/Dockerfile
+      buildContext: ./backend
+      tag: backendr:${CICD_EXECUTION_SEQUENCE}
+- name: Publish frontend
+  steps: 
+  - publishImageConfig:
+      dockerfilePath: ./frontend/Dockerfile
+      buildContext: ./frontend
+      tag: frontend:${CICD_EXECUTION_SEQUENCE}
+- name: Deploy
+  steps:
+  - applyYamlConfig:
+      path: ./deployment.yaml
+
